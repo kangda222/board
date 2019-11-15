@@ -1,0 +1,31 @@
+create table user (
+    user_id INT,
+    email VARCHAR(50) AUTO_INCREMENT,
+    password VARCHAR(50) NOT NULL,
+    created_time DATETIME NOT NULL,
+    updated_time DATETIME,
+    PRIMARY KEY(user_id)
+);
+
+create table post (
+    post_id INT,
+    title VARCHAR(200) NOT NULL,
+    content TEXT NOT NULL,
+    created_time DATETIME NOT NULL,
+    updated_time DATETIME,
+    user_id INT NOT NULL,
+    PRIMARY KEY(post_id),
+    FOREIGN KEY(user_id) REFERENCES user (user_id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+create table comment (
+    comment_id INT,
+    content TEXT NOT NULL,
+    created_time DATETIME NOT NULL,
+    updated_time DATETIME,
+    user_id INT NOT NULL,
+    post_id INT NOT NULL,
+    PRIMARY KEY(comment_id),
+    FOREIGN KEY(user_id) REFERENCES user (user_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(post_id) REFERENCES post (post_id) ON UPDATE CASCADE ON DELETE CASCADE
+);
