@@ -2,7 +2,7 @@ package com.board.DTO;
 
 import lombok.Data;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @Data
 public class UserDTO {
@@ -10,6 +10,6 @@ public class UserDTO {
     private int userId;
     private String email;
     private String password;
-    private Date createdTime;
-    private Date updatedTime;
+    private Timestamp createdTime;
+    private Timestamp updatedTime;
 }
