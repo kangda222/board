@@ -28,4 +28,14 @@ public class UserRestController {
         System.out.println(userDTO);
         return userService.addUser(userDTO);
     }
+
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    public UserDTO loginUser(@RequestBody UserDTO userDTO) throws Exception{
+        return userService.loginUser(userDTO);
+    }
+
+    @RequestMapping(value = "emailDuplicationCheck", method = RequestMethod.POST)
+    public boolean emailDuplicationCheck(@RequestBody UserDTO userDTO) throws Exception{
+        return userService.emailDuplicationCheck(userDTO);
+    }
 }

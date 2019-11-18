@@ -6,4 +6,7 @@
         INSERT INTO userT (email, password, created_time)
         VALUES(#{email}, #{password}, #{createdTime})
     </insert>
+    <select id="getUser" parameterType="com.board.DTO.UserDTO" resultType="com.board.DTO.UserDTO">
+        SELECT user_id, email, password FROM userT WHERE email = #{email};
+    </select>
 </mapper>

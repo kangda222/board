@@ -23,7 +23,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO loginUser(UserDTO user) throws Exception {
-        return null;
+        UserDTO userDB = userMapper.getUser(user);
+        if(user.getPassword().equals(userDB.getPassword())){
+            return userDB;
+        }else{
+            return null;
+        }
     }
 
     @Override
@@ -31,7 +36,25 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    @Override
+    public UserDTO getUser(UserDTO user) throws Exception {
+        return userMapper.getUser(user);
+    }
+
+    @Override
+    public boolean emailDuplicationCheck(UserDTO user) throws Exception {
+        if(userMapper.getUser(user) != null){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     private boolean validateEmail(String email) throws Exception{
         return Pattern.matches("^[a-zA-Z0-9]+@[a-zA-Z0-9]+$", email);
+    }
+
+    private boolean validateUser(UserDTO user) throws Exception{
+        return (user.getEmail() != null && user.getPassword() != null) ? true : false;
     }
 }
