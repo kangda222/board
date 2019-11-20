@@ -16,9 +16,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public int addUser(UserDTO user) throws Exception {
         System.out.println(user.getEmail());
-        System.out.println(validateEmail(user.getEmail()));
-        //return userMapper.addUser(user);
-        return 0;
+        //System.out.println(validateEmail(user.getEmail()));
+        if(!validateEmail(user.getEmail())){
+            return 0;
+        }else if(emailDuplicationCheck(user)){
+            return 0;
+        }
+        return userMapper.addUser(user);
     }
 
     @Override
@@ -51,7 +55,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private boolean validateEmail(String email) throws Exception{
-        return Pattern.matches("^[a-zA-Z0-9]+@[a-zA-Z0-9]+$", email);
+        return Pattern.matches("^[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z]+$", email);
     }
 
     private boolean validateUser(UserDTO user) throws Exception{
