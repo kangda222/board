@@ -2,13 +2,13 @@ package com.board.DTO;
 
 import lombok.Data;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @Data
 public class BoardDTO {
-    private int boardIdx;
+    private int boardId;
     private String title;
     private String content;
-    private Date createdTime;
-    private Date updatedTime;
+    private String type;
+    private Timestamp updatedTime;
 }

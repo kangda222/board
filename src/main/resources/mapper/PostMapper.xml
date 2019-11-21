@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.board.mapper.board.PostMapper" >
+    <insert id="addPost" parameterType="com.board.DTO.PostDTO" useGeneratedKeys="true">
+        INSERT INTO post (title, content, created_time, user_id)
+        VALUES(#{title}, #{content}, #{createdTime}, #{userId});
+        <selectKey resultType="int" keyProperty="post_id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+    <select id="getPost" parameterType="java.lang.Integer" resultType="com.board.DTO.PostDTO">
+        SELECT post_id, title, content, user_id FROM post WHERE post_id = #{value};
+    </select>
+    <select id="listAllPost" resultType="com.board.DTO.PostDTO">
+        SELECT post_id, title, user_id, created_time, updated_time FROM post;
+    </select>
+    <select id="listPostByUser" parameterType="com.board.DTO.UserDTO" resultType="com.board.DTO.PostDTO">
+        SELECT post_id, title, user_id, created_time, updated_time FROM post WHERE user_id = #{userId};
+    </select>
+    <update id="updatePost" parameterType="com.board.DTO.PostDTO">
+        UPDATE post
+        <set>title = #{title}, content = #{content}, updated_time = #{updatedTime}</set>
+        WHERE post_id = #{postId}
+    </update>
+    <delete id="deletePost" parameterType="int">
+        DELETE FROM post WHERE post_id = #{value}
+    </delete>
+</mapper>

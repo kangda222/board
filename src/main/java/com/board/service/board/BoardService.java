@@ -1,21 +1,28 @@
 package com.board.service.board;
 
+import com.board.DTO.BoardDTO;
 import com.board.DTO.CommentDTO;
 import com.board.DTO.PostDTO;
+import com.board.DTO.UserDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BoardService {
 
     public PostDTO addPost(PostDTO postDTO) throws Exception;
 
-    public PostDTO getPost() throws Exception;
+    public Map<String, Object> getPost(PostDTO post) throws Exception;
 
-    public List<PostDTO> getPostList() throws Exception;
+    public List<PostDTO> listAllPost() throws Exception;
+
+    public List<PostDTO> listPostByUser(UserDTO user) throws Exception;
 
     public CommentDTO addComment(CommentDTO commentDTO) throws Exception;
 
-    //업데이트 public PostDTO updatePost(PostDTO postDTO) throws Exception;
+    //post, comment update
+    public BoardDTO update(BoardDTO board) throws Exception;
 
-    //삭제 post, comment
+    //post, comment delete
+    public int delete(int id, String type) throws Exception;
 }
