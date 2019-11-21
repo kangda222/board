@@ -64,7 +64,7 @@ public class BoardRestController {
     }
 
     @RequestMapping(value = "addComment", method = RequestMethod.POST)
-    public CommentDTO addComment(@RequestBody CommentDTO comment) throws Exception{
+    public int addComment(@RequestBody CommentDTO comment) throws Exception{
         SimpleDateFormat format = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
         String formatTime = format.format (System.currentTimeMillis());
         Timestamp date =Timestamp.valueOf(formatTime);

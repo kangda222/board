@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.board.mapper.board.CommentMapper" >
+    <insert id="addComment" parameterType="com.board.DTO.CommentDTO">
+        INSERT INTO comment (content, user_id, post_id, created_time)
+        VALUES(#{content}, #{userId}, #{postId}, #{createdTime})
+    </insert>
+    <select id="getComment" parameterType="com.board.DTO.CommentDTO" resultType="com.board.DTO.CommentDTO">
+        SELECT comment_id, content, created_time, updated_time, user_id, post_id FROM comment WHERE comment_id = #{commentId};
+    </select>
+    <select id="getCommentByPostId" parameterType="com.board.DTO.UserDTO" resultType="com.board.DTO.CommentDTO">
+        SELECT comment_id, content, created_time, updated_time, user_id FROM comment WHERE user_id = #{userId};
+    </select>
+    <update id="updateComment" parameterType="com.board.DTO.CommentDTO">
+        UPDATE comment
+        <set>content=#{content}, updated_time=#{updatedTime}</set>
+        WHERE comment_id = #{commentId}
+    </update>
+    <delete id="deleteComment" parameterType="int">
+        DELETE FROM comment WHERE comment_id = #{value}
+    </delete>
+</mapper>

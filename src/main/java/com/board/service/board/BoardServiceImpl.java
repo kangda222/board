@@ -60,7 +60,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public CommentDTO addComment(CommentDTO commentDTO) throws Exception {
+    public int addComment(CommentDTO commentDTO) throws Exception {
         return commentManager.addComment(commentDTO);
     }
 

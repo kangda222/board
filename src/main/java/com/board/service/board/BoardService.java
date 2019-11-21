@@ -18,7 +18,7 @@ public interface BoardService {
 
     public List<PostDTO> listPostByUser(UserDTO user) throws Exception;
 
-    public CommentDTO addComment(CommentDTO commentDTO) throws Exception;
+    public int addComment(CommentDTO commentDTO) throws Exception;
 
     //post, comment update
     public BoardDTO update(BoardDTO board) throws Exception;

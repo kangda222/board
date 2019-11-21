@@ -2,12 +2,14 @@ package com.board.DTO;
 
 import lombok.Data;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @Data
 public class CommentDTO {
     private int commentId;
     private String content;
-    private Date createdTime;
-    private Date updatedTime;
+    private int userId;
+    private int postId;
+    private Timestamp createdTime;
+    private Timestamp updatedTime;
 }
