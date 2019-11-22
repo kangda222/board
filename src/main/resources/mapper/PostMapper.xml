@@ -2,12 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.board.mapper.board.PostMapper" >
-    <insert id="addPost" parameterType="com.board.DTO.PostDTO" useGeneratedKeys="true">
+    <insert id="addPost" parameterType="com.board.DTO.PostDTO">
         INSERT INTO post (title, content, created_time, user_id)
         VALUES(#{title}, #{content}, #{createdTime}, #{userId});
-        <selectKey resultType="int" keyProperty="post_id" order="AFTER">
-            SELECT LAST_INSERT_ID()
-        </selectKey>
     </insert>
     <select id="getPost" parameterType="java.lang.Integer" resultType="com.board.DTO.PostDTO">
         SELECT post_id, title, content, user_id FROM post WHERE post_id = #{value};

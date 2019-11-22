@@ -24,7 +24,7 @@ public class BoardRestController {
     BoardService boardService;
 
     @RequestMapping(value = "addPost", method = RequestMethod.POST)
-    public PostDTO addPost(@RequestBody PostDTO post) throws Exception{
+    public int addPost(@RequestBody PostDTO post) throws Exception{
         SimpleDateFormat format = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
         String formatTime = format.format (System.currentTimeMillis());
         Timestamp date =Timestamp.valueOf(formatTime);

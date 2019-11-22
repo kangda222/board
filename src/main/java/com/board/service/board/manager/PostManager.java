@@ -8,7 +8,7 @@ import java.util.Map;
 
 public interface PostManager {
 
-    public PostDTO addPost(PostDTO post) throws Exception;
+    public int addPost(PostDTO post) throws Exception;
 
     public Map<String,Object> getPost(PostDTO post) throws Exception;
 

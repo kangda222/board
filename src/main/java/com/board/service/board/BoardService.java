@@ -10,7 +10,7 @@ import java.util.Map;
 
 public interface BoardService {
 
-    public PostDTO addPost(PostDTO postDTO) throws Exception;
+    public int addPost(PostDTO postDTO) throws Exception;
 
     public Map<String, Object> getPost(PostDTO post) throws Exception;
 

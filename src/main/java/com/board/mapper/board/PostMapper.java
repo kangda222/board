@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface PostMapper {
-    public PostDTO addPost(PostDTO post) throws Exception;
+    public int addPost(PostDTO post) throws Exception;
 
     public PostDTO getPost(int id) throws Exception;
 

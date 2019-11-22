@@ -56,17 +56,14 @@ public class PostManagerImpl implements PostManager,BoardCommonManager {
     }
 
     @Override
-    public PostDTO addPost(PostDTO post) throws Exception {
+    public int addPost(PostDTO post) throws Exception {
         String title = post.getTitle();
         if(title == "" || title.length() > 100){
             //error 처리
-            return null;
+            return 0;
         }
-        System.out.println(postMapper.addPost(post));
-//        PostDTO savedPost = postMapper.addPost(post);
-//        savedPost = postMapper.getPost(savedPost.getPostId());
-//        return savedPost;//post return 처리
-        return null;
+        //System.out.println(postMapper.addPost(post));
+        return postMapper.addPost(post);//post return 처리
     }
 
     @Override

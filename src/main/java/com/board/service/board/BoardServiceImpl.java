@@ -38,9 +38,8 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public PostDTO addPost(PostDTO postDTO) throws Exception {
-        PostDTO savedPost = postManager.addPost(postDTO);
-        return savedPost;
+    public int addPost(PostDTO postDTO) throws Exception {
+        return postManager.addPost(postDTO);
     }
 
     @Override
