@@ -15,6 +15,9 @@
     <select id="listPostByUser" parameterType="com.board.DTO.UserDTO" resultType="com.board.DTO.PostDTO">
         SELECT post_id, title, user_id, created_time, updated_time FROM post WHERE user_id = #{userId};
     </select>
+    <select id="downloadFile" parameterType="int" resultType="com.board.DTO.PostDTO">
+        SELECT post_id, user_id, file_name, stored_path FROM post WHERE post_id = #{value};
+    </select>
     <update id="updatePost" parameterType="com.board.DTO.PostDTO">
         UPDATE post
         <set>title = #{title}, content = #{content}, updated_time = #{updatedTime}</set>

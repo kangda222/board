@@ -7,11 +7,19 @@ import com.board.DTO.UserDTO;
 import com.board.service.board.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.net.URLEncoder;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -104,5 +112,18 @@ public class BoardRestController {
     @RequestMapping(value = "deleteComment", method = RequestMethod.POST)
     public int deleteComment(@RequestBody CommentDTO comment) throws Exception{
         return boardService.delete(comment.getCommentId(), "comment");
+    }
+
+    @RequestMapping(value = "downloadFile", method = RequestMethod.POST)
+    public ResponseEntity<Resource> downloadFile(@RequestBody PostDTO post) throws Exception{
+        PostDTO storedPost = boardService.downloadFile(post);
+        String fileName = storedPost.getFileName();
+        File file = new File(storedPost.getStoredPath());
+        Path path = Paths.get(file.getAbsolutePath());
+        ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path));
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType("application/octet-stream"))
+                .header(HttpHeaders.CONTENT_DISPOSITION,"attachment; fileName=\""+ URLEncoder.encode(fileName,"UTF-8")+"\";")
+                .body(resource);
     }
 }

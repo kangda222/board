@@ -25,4 +25,6 @@ public interface BoardService {
 
     //post, comment delete
     public int delete(int id, String type) throws Exception;
+
+    public PostDTO downloadFile(PostDTO post) throws Exception;
 }

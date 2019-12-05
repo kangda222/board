@@ -20,5 +20,7 @@ public interface PostMapper {
     //사용자별 작성 포스트 리스트
     public List<PostDTO> listPostByUser(UserDTO user) throws Exception;
 
+    public PostDTO downloadFile(int id) throws Exception;
+
     public int deletePost(int postId) throws Exception;
 }

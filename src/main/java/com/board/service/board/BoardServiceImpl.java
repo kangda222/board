@@ -73,4 +73,9 @@ public class BoardServiceImpl implements BoardService {
     public int delete(int id, String type) throws Exception {
         return serviceManagers.get(type).delete(id);
     }
+
+    @Override
+    public PostDTO downloadFile(PostDTO post) throws Exception {
+        return postManager.downloadFile(post.getPostId());
+    }
 }

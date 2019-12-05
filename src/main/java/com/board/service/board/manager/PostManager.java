@@ -15,4 +15,6 @@ public interface PostManager {
     public List<PostDTO> listAllPost() throws Exception;
 
     public List<PostDTO> listPostByUser(UserDTO user) throws Exception;
+
+    public PostDTO downloadFile(int id) throws Exception;
 }

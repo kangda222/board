@@ -85,4 +85,9 @@ public class PostManagerImpl implements PostManager,BoardCommonManager {
     public List<PostDTO> listPostByUser(UserDTO user) throws Exception {
         return postMapper.listPostByUser(user);//null처리
     }
+
+    @Override
+    public PostDTO downloadFile(int id) throws Exception {
+        return postMapper.downloadFile(id);
+    }
 }
