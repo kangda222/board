@@ -8,14 +8,16 @@ import com.board.service.board.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -119,11 +121,28 @@ public class BoardRestController {
         PostDTO storedPost = boardService.downloadFile(post);
         String fileName = storedPost.getFileName();
         File file = new File(storedPost.getStoredPath());
-        Path path = Paths.get(file.getAbsolutePath());
-        ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path));
+
+        //InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+        //InputStreamResource resource = new InputStreamResource(new FileInputStream(storedPost.getStoredPath()));
+
+//        Path path = Paths.get(file.getAbsolutePath());
+//        System.out.println(path);
+//        ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path));
+
+        byte[] bytes = FileCopyUtils.copyToByteArray(file);
+        ByteArrayResource resource = new ByteArrayResource(bytes);
+
+        String contentType = MediaType.APPLICATION_OCTET_STREAM_VALUE;
+        if(storedPost.getStoredPath().substring(storedPost.getStoredPath().length()-3).toLowerCase().equals("png")){
+            contentType = "image/png";
+        }else if(storedPost.getStoredPath().substring(storedPost.getStoredPath().length()-3).toLowerCase().equals("jpeg")){
+            contentType = "image/jpeg";
+        }
+
         return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType("application/octet-stream"))
-                .header(HttpHeaders.CONTENT_DISPOSITION,"attachment; fileName=\""+ URLEncoder.encode(fileName,"UTF-8")+"\";")
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=\""+ URLEncoder.encode(fileName,"UTF-8")+"\";")
+                .header("Content-Transfer-Encoding","binary")
                 .body(resource);
     }
 }
