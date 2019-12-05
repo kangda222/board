@@ -3,8 +3,8 @@
 
 <mapper namespace="com.board.mapper.board.PostMapper" >
     <insert id="addPost" parameterType="com.board.DTO.PostDTO">
-        INSERT INTO post (title, content, created_time, user_id)
-        VALUES(#{title}, #{content}, #{createdTime}, #{userId});
+        INSERT INTO post (title, content, created_time, user_id, file_name, stored_path)
+        VALUES(#{title}, #{content}, #{createdTime}, #{userId}, #{fileName}, #{storedPath} );
     </insert>
     <select id="getPost" parameterType="java.lang.Integer" resultType="com.board.DTO.PostDTO">
         SELECT post_id, title, content, user_id FROM post WHERE post_id = #{value};

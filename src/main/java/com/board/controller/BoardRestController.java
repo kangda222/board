@@ -6,11 +6,12 @@ import com.board.DTO.PostDTO;
 import com.board.DTO.UserDTO;
 import com.board.service.board.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -23,14 +24,31 @@ public class BoardRestController {
     @Autowired
     BoardService boardService;
 
-    @RequestMapping(value = "addPost", method = RequestMethod.POST)
-    public int addPost(@RequestBody PostDTO post) throws Exception{
+    @Value("${uploadPath}")
+    private String uploadPath;
+
+    @RequestMapping(value = "addPost", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public int addPost(PostDTO post) throws Exception{
         SimpleDateFormat format = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
         String formatTime = format.format (System.currentTimeMillis());
         Timestamp date =Timestamp.valueOf(formatTime);
         post.setCreatedTime(date);
+        if(post.getFile().length != 0){
+            String newFileName;
+            if(post.getFile().length == 1){
+                System.out.println(post.getFile()[0].getOriginalFilename());
+                System.out.println(post.getFile()[0].getContentType());
+                newFileName = post.getUserId()+"_"+post.getFile()[0].getOriginalFilename();
+                post.setFileName(post.getFile()[0].getOriginalFilename());
+                post.setStoredPath(uploadPath+newFileName);
+
+                File file = new File(post.getStoredPath());
+                post.getFile()[0].transferTo(file);
+            }
+        }
         System.out.println(post);
         return boardService.addPost(post);
+        //return 0;
     }
 
     @RequestMapping(value = "getPost", method = RequestMethod.POST)
