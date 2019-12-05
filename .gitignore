@@ -195,3 +195,4 @@ fabric.properties
 .idea/**/markdown-navigator/
 
 /src/main/resources/application.properties
+src/main/resources/images/
