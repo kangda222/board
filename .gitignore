@@ -194,5 +194,5 @@ fabric.properties
 .idea/**/markdown-navigator.xml
 .idea/**/markdown-navigator/
 
-/src/main/resources/application.properties
+src/main/resources/application.properties
 src/main/resources/images/
